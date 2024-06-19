@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Ram's Web Page</title>
+  <link href="style.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
+  <script src="https://kit.fontawesome.com/ecb76fa5f0.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <div id="header">
+    <div class="container">
+      <nav>
+        <img src="ram-logo.png" class="logo">
+        <ul id="sidemenu">
+          <li><a href="#header">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#portpolio">Portpolio</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <i class="fa-solid fa-xmark" onclick="closemenu()"></i>
+        </ul>
+        <i class="fa-solid fa-bars" onclick="openmenu()"></i>
+
+      </nav>
+      <div class="header-text">
+        <h1>Hi, I'm<br><span>SM YOGEESH</span></h1>
+        <p>I'm DevOps Engineer and have experience in source code, build and deployment management let's scroll down to
+          know me.</p>
+      </div>
+    </div>
+  </div>
+  <!-- --------------------------about me---------------------- -->
+  <div id="about">
+    <div class="container">
+      <div class="row">
+        <div class="about-col-1">
+          <img src="images/ram-photo.jpg">
+        </div>
+        <div class="about-col-2">
+          <h1 class="sub-title">About Me</h1>
+          <p> "Hello! I'm a DevOps engineer passionate about streamlining software development. 
+            My portfolio showcases how I optimize processes, automate workflows, and enhance 
+            collaboration between teams. From crafting efficient pipelines to fortifying 
+            infrastructure, I'm dedicated to driving innovation and scalability. Let's connect 
+            and explore how I can help propel your projects forward!"</p>
+          <div class="tab-titles">
+            <!-- <p class="tab-links active-link" onclick="opentab('skills')">Skills</p> -->
+            <p class="tab-links active-link" onclick="opentab('experience')"">Experience</p>
+            <p class=" tab-links" onclick="opentab('education')">Education</p>
+          </div>
+          <!-- <div class="tab-contents active-tab" id="skills">
+            <ul>
+              <li><span>Cloud Providing Platform</span><br>AWS, Azure, GCP</li>
+              <li><span>Scripting</span><br>Shell Scripting, Python</li>
+              <li><span>Web Servers</span><br>Apache2, Nginx, Tomcat</li>
+              <li><span>Building</span><br>Maven, NodeJS</li>
+              <li><span>Containeration Platform</span><br>Docker</li>
+              <li><span>CI/CD</span><br>Jenkins, Azure Devops pipelines</li>
+              <li><span>Container Orchestration Platform</span><br>Docker-Compose, Kubernates</li>
+              <li><span>Configuration</span><br>Ansible, Terraform</li>
+              <li><span>Monitoring</span><br>Prometheus, Grafana</li>
+              <li><span>Databases Worked</span><br>MongoDB, MySQL, Postgres</li>
+            </ul>
+          </div> -->
+          <div class="tab-contents active-tab" id="experience">
+            <ul>
+              <li><span>2023-Current</span><br>DevOps Engineer:- Tech Active Solutions Pvt Ltd, Bangalore</li>
+              <li><span>2022-2023</span><br>DevOps Engineer:- Moshi Moshi Media Ltd, Bangalore</li>
+              <li><span>2020-2021</span><br>GAAP Trainee Engineer:- Bharath Electronics Ltd, Bangalore</li>
+              <li><span>2019-2020</span><br>Testing Engineer:- ABB, Nashik, MH</li>
+            </ul>
+          </div>
+          <div class="tab-contents" id="education">
+            <ul>
+              <li><span>2019</span><br>B.E in CS&D From Atria IT, Banglore</li>
+              <li><span>2015</span><br>Pre-University From Govt Pu College Boys, Tiptur</li>
+              <li><span>2013</span><br>SSLC From Govt High School, Ramanahalli-C.N HALLI</li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skills -->
+  <div id="skills">
+    <div class="container">
+      <h1 class="sub-title">Skills</h1>
+      <div>
+        <div class="skills-list" id="skills">
+          <ul>
+            <li><span>Cloud Providing Platform</span><br><p>AWS, Azure, GCP</p></li>
+            <li><span>Scripting</span><br><p>Shell Scripting, Python</p></li>
+            <li><span>Web Servers</span><br><p>Apache2, Nginx, Tomcat</p></li>
+            <li><span>Building</span><br><p>Maven, NodeJS</p></li>
+            <li><span>Containeration Platform</span><br><p>Docker, Docker-Compose</p></li>
+            <li><span>CI/CD</span><br><p>Jenkins, Azure Devops pipelines</p></li>
+            <li><span>Container Orchestration Platform</span><br><p>Docker Swarm, Kubernates</p></li>
+            <li><span>Configuration</span><br><p></p>Ansible, Terraform</p></li>
+            <li><span>Monitoring</span><br><p>Prometheus, Grafana</p></li>
+            <li><span>Databases Worked</span><br><p>MongoDB, MySQL, Postgres</p></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--   ---------------------------Services----------------------------- -->
+  <div id="services">
+    <div class="container">
+      <h1 class="sub-title">My Services</h1>
+      <div class="services-list">
+        <div>
+          <i class="fa-solid fa-code"></i>
+          <h2>Web Development</h2>
+          <p>I wish that this auspicious day bring along happiness to you and your family and fill your life with
+            prosperity and joy….</p>
+          <a href="">Learn more</a>
+        </div>
+        <div>
+          <i class="fa-solid fa-laptop-code"></i>
+          <h2>Web Deployment</h2>
+          <p>I wish that this auspicious day bring along happiness to you and your family and fill your life with
+            prosperity and joy….</p>
+          <a href="">Learn more</a>
+        </div>
+        <div>
+          <i class="fa-solid fa-server"></i>
+          <h2>Server Setup</h2>
+          <p>I wish that this auspicious day bring along happiness to you and your family and fill your life with
+            prosperity and joy….</p>
+          <a href="">Learn more</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- --------------portpolio----------------------- -->
+  <div id="portpolio">
+    <div class="container">
+      <h1 class="sub-title">My Works</h1>
+      <div class="work-list">
+        <div class="work">
+          <img src="images/work-1.jpg">
+          <div class="layer">
+            <h3>Social Media App</h3>
+            <p>The app connects you to the people around the world. Download it from the play store.</p>
+            <a href=""><i class="fa-solid fa-link"></i></a>
+          </div>
+        </div>
+        <div class="work">
+          <img src="images/work-2.jpg">
+          <div class="layer">
+            <h3>Social Media App</h3>
+            <p>The app connects you to the people around the world. Download it from the play store.</p>
+            <a href=""><i class="fa-solid fa-link"></i></a>
+          </div>
+        </div>
+        <div class="work">
+          <img src="images/work-3.jpg">
+          <div class="layer">
+            <h3>Social Media App</h3>
+            <p>The app connects you to the people around the world. Download it from the play store.</p>
+            <a href=""><i class="fa-solid fa-link"></i></a>
+          </div>
+        </div>
+      </div>
+      <a href="" class="btn">See more</a>
+    </div>
+  </div>
+  <!-- --------------------contact--------------------- -->
+  <div id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="contact-left">
+          <h1 class="sub-title ">Contact Me</h1>
+          <p><i class="fa-solid fa-envelope"></i>yogeeshsm03@gmail.com</p>
+          <p><i class="fa-solid fa-square-phone"></i>+91-7483193106</p>
+          <p><i class="fa-solid fa-location-dot"></i>R.T Nagar,Banglore-560057</p>
+
+          <div class="social-icons">
+            <a href=""><i class="fa-brands fa-facebook"></i></a>
+            <a href=""><i class="fa-brands fa-square-instagram"></i></a>
+            <a href=""><i class="fa-brands fa-linkedin"></i></a>
+            <a href=""><i class="fa-brands fa-twitter"></i></a>
+          </div>
+          <a href="images/my-cv.pdf" download class="btn btn1 btn2">Download CV</a>
+        </div>
+        <div class="contact-right">
+          <form name="submit-to-google-sheet">
+            <input type="text" name="Name" placeholder="Your Name" required>
+            <input type="email" name="Email" placeholder="Your Email" required>
+            <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+            <button type="submit" class="btn btn2">Submit</button>
+          </form>
+          <span id="msg"></span>
+        </div>
+      </div>
+    </div>
+    <!--     --------------------copyright---------------- -->
+    <div class="copyright">
+      <p>Copyright ©SM YOGEESH. Made with <i class="fa-solid fa-heart"></i> by
+        Ram</p>
+    </div>
+  </div>
+
+
+  <script src="script.js"></script>
+  <!--   <script src="https://replit.com/public/js/replit-badge-v2.js" theme="dark" position="bottom-right"></script> -->
+</body>
+
+</html>
