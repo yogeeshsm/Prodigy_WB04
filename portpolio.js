@@ -1,107 +1,139 @@
-
 document.addEventListener('DOMContentLoaded', () => {
+  // ========== Tabs Functionality ==========
+  const tabLinks = document.querySelectorAll('.tab-links');
+  const tabContents = document.querySelectorAll('.tab-contents');
+  const tabList = document.querySelector('[role="tablist"]') || null;
 
-  // ---------- Tabs Functionality ----------
-  const tablinks = document.querySelectorAll('.tab-links');
-  const tabcontents = document.querySelectorAll('.tab-contents');
-
-  function opentab(event, tabname) {
-    // Remove active states from all tabs and contents
-    tablinks.forEach(tablink => {
-      tablink.classList.remove('active-link');
-      tablink.setAttribute('aria-selected', 'false');
-      tablink.setAttribute('tabindex', '-1');
+  function openTab(event, tabName) {
+    tabLinks.forEach(tab => {
+      tab.classList.remove('active-link');
+      tab.setAttribute('aria-selected', 'false');
+      tab.setAttribute('tabindex', '-1');
+    });
+    tabContents.forEach(content => {
+      content.classList.remove('active-tab');
+      content.setAttribute('aria-hidden', 'true');
     });
 
-    tabcontents.forEach(tabcontent => {
-      tabcontent.classList.remove('active-tab');
-      tabcontent.setAttribute('aria-hidden', 'true');
-    });
+    const tab = event.currentTarget;
+    tab.classList.add('active-link');
+    tab.setAttribute('aria-selected', 'true');
+    tab.setAttribute('tabindex', '0');
+    tab.focus();
 
-    // Activate the clicked tab and corresponding content
-    event.currentTarget.classList.add('active-link');
-    event.currentTarget.setAttribute('aria-selected', 'true');
-    event.currentTarget.setAttribute('tabindex', '0');
-    document.getElementById(tabname).classList.add('active-tab');
-    document.getElementById(tabname).setAttribute('aria-hidden', 'false');
-    event.currentTarget.focus();
+    const content = document.getElementById(tabName);
+    if (content) {
+      content.classList.add('active-tab');
+      content.setAttribute('aria-hidden', 'false');
+    }
   }
 
-  // Attach click event listeners to all tab links
-  tablinks.forEach(tablink => {
-    tablink.addEventListener('click', function(e) {
-      const tabname = this.getAttribute('data-tab');
-      opentab(e, tabname);
+  tabLinks.forEach((tab, i) => {
+    tab.setAttribute('tabindex', i === 0 ? '0' : '-1');
+    tab.setAttribute('role', 'tab');
+    tab.setAttribute('aria-selected', 'false');
+    // Set aria-controls/label relationship
+    const tabName = tab.getAttribute('data-tab');
+    if (tabName) {
+      tab.setAttribute('aria-controls', tabName);
+      const tabPanel = document.getElementById(tabName);
+      if (tabPanel) tabPanel.setAttribute('aria-labelledby', tab.id || `tab-link-${i}`);
+    }
+    tab.addEventListener('click', function(e) {
+      openTab(e, tab.getAttribute('data-tab'));
     });
-    // Make tabs focusable
-    tablink.setAttribute('tabindex', '0');
-    tablink.setAttribute('role', 'tab');
-    tablink.setAttribute('aria-selected', 'false');
+    // Enter/space to select tab for accessibility
+    tab.addEventListener('keydown', function(e) {
+      if ([' ', 'Enter'].includes(e.key)) {
+        e.preventDefault();
+        openTab(e, tab.getAttribute('data-tab'));
+      }
+    });
   });
 
-  // Set ARIA roles for tab contents
-  tabcontents.forEach(tabcontent => {
-    tabcontent.setAttribute('role', 'tabpanel');
-    tabcontent.setAttribute('aria-hidden', 'true');
+  tabContents.forEach((content, i) => {
+    content.setAttribute('role', 'tabpanel');
+    content.setAttribute('aria-hidden', 'true');
+    // Optionally mark each panel with id if not present
+    if (!content.id) content.id = `tab-panel-${i}`;
   });
 
-  // Activate the first tab by default
-  if (tablinks.length > 0) {
-    tablinks[0].click();
+  // Tablist role on parent container for screenreaders
+  if (tabList) tabList.setAttribute('role', 'tablist');
+
+  // Activate first tab by default
+  if (tabLinks.length > 0) {
+    tabLinks[0].classList.add('active-link');
+    tabLinks[0].setAttribute('aria-selected', 'true');
+    tabLinks[0].setAttribute('tabindex', '0');
+    tabLinks[0].focus();
+    const firstTabName = tabLinks[0].getAttribute('data-tab');
+    if (firstTabName) {
+      const firstPanel = document.getElementById(firstTabName);
+      if (firstPanel) {
+        firstPanel.classList.add('active-tab');
+        firstPanel.setAttribute('aria-hidden', 'false');
+      }
+    }
   }
 
-  // Enable arrow key tab navigation (accessibility)
+  // Keyboard navigation for tabs (left/right/home/end)
   document.addEventListener('keydown', (e) => {
+    // Focus should be on tablist children to avoid global keystrokes
+    if (!e.target.closest('[role="tablist"]')) return;
+
     const keys = ['ArrowLeft', 'ArrowRight', 'Home', 'End'];
     if (!keys.includes(e.key)) return;
 
-    const activeTab = document.querySelector('.tab-links.active-link');
-    let index = Array.from(tablinks).indexOf(activeTab);
+    const activeTab = document.activeElement;
+    let idx = Array.from(tabLinks).indexOf(activeTab);
+    if (idx === -1) return;
 
+    let nextIdx;
     if (e.key === 'ArrowLeft') {
-      index = (index - 1 + tablinks.length) % tablinks.length;
+      nextIdx = (idx - 1 + tabLinks.length) % tabLinks.length;
     } else if (e.key === 'ArrowRight') {
-      index = (index + 1) % tablinks.length;
+      nextIdx = (idx + 1) % tabLinks.length;
     } else if (e.key === 'Home') {
-      index = 0;
+      nextIdx = 0;
     } else if (e.key === 'End') {
-      index = tablinks.length - 1;
-    } else {
-      return;
+      nextIdx = tabLinks.length - 1;
     }
-
-    tablinks[index].focus();
-    tablinks[index].click();
+    tabLinks[nextIdx].focus();
+    tabLinks[nextIdx].click();
     e.preventDefault();
   });
 
-  // ---------- Mobile Navigation ----------
+  // ========== Mobile Navigation ==========
   const sidemenu = document.getElementById('sidemenu');
 
   window.openmenu = function() {
+    if (!sidemenu) return;
     sidemenu.style.right = '0';
     sidemenu.setAttribute('aria-hidden', 'false');
+    sidemenu.setAttribute('tabindex', '-1');
     sidemenu.focus();
   };
 
   window.closemenu = function() {
-    sidemenu.style.right = '-250px'; // Adjust as needed
+    if (!sidemenu) return;
+    sidemenu.style.right = '-250px'; // Adjust width as per CSS
     sidemenu.setAttribute('aria-hidden', 'true');
   };
 
-  // Optional: Close menu when clicking outside
+  // Prevent repeated calls on touch/click
+  let closeTimeout = null;
   document.addEventListener('click', (e) => {
+    if (!sidemenu) return;
     if (
-      sidemenu &&
-      !sidemenu.contains(e.target) &&
-      !e.target.matches('.menu-toggle, .menu-toggle *')
-    ) {
-      sidemenu.style.right = '-250px';
-      sidemenu.setAttribute('aria-hidden', 'true');
-    }
+      sidemenu.contains(e.target) ||
+      e.target.closest('.menu-toggle')
+    ) return;
+    clearTimeout(closeTimeout);
+    closeTimeout = setTimeout(() => window.closemenu(), 100);
   });
 
-  // ---------- Google Form Integration ----------
+  // ========== Google Form Integration ==========
   const scriptURL = 'https://script.google.com/macros/s/AKfycbwUbIBu8oJ5mBTSMVfQFM8IycnTINfzb6tOB-oBWBYHHEtquyky0iD2OAmb4SZ1SnFQpw/exec';
   const form = document.forms['submit-to-google-sheet'];
   const msg = document.getElementById('msg');
@@ -111,27 +143,33 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', e => {
       e.preventDefault();
 
-      // Confirm before submit
+      // Optional: Confirm on submit
       if (!confirm('Are you sure you want to submit this form?')) return;
 
-      msg.innerHTML = '';
-      loader.style.display = 'inline-block';
+      if (msg) {
+        msg.innerHTML = '';
+        msg.style.color = '';
+      }
+      if (loader) loader.style.display = 'inline-block';
 
       fetch(scriptURL, { method: 'POST', body: new FormData(form) })
         .then(response => {
-          loader.style.display = 'none';
-          msg.innerHTML = '✅ Message sent successfully!';
-          msg.style.color = 'green';
+          if (loader) loader.style.display = 'none';
+          if (msg) {
+            msg.innerHTML = '✅ Message sent successfully!';
+            msg.style.color = 'green';
+          }
           form.reset();
-          setTimeout(() => { msg.innerHTML = ''; }, 4000);
+          setTimeout(() => { if (msg) msg.innerHTML = ''; }, 4000);
         })
         .catch(error => {
-          loader.style.display = 'none';
-          msg.innerHTML = '❌ Error sending message.';
-          msg.style.color = 'red';
+          if (loader) loader.style.display = 'none';
+          if (msg) {
+            msg.innerHTML = '❌ Error sending message. Please try again.';
+            msg.style.color = 'red';
+          }
           console.error('Error!', error.message);
         });
     });
   }
-
 });
